@@ -1,0 +1,104 @@
+# Copyright (c) , Matteo Franci a.k.a. Fugerit
+#
+# version : 1.0.0
+#
+name: 'Action for maven build and scan'
+description: 'CI steps for maven projects'
+branding:
+  icon: 'activity'
+  color: 'light-blue'
+inputs:
+  github-token:
+    description: 'Github authorization token'
+    required: false
+  sonar-token:
+    description: 'Sonar authorization token'
+    required: false
+  java-version:
+    description: 'Java version.'
+    required: true
+    default: '17'
+  java-distribution:
+    description: 'Java distribution.'
+    required: true
+    default: 'corretto'
+  maven-version:
+    description: 'Maven version.'
+    required: true
+    default: '3.9.6'
+  node-version:
+    description: 'Node version.'
+    required: true
+    default: '20'
+  disable-maven-dependency-submission:
+    description: 'Disable maven dependency submission.'
+    required: true
+    default: 'false'
+runs:
+  using: 'composite'
+
+  steps:
+    - uses: actions/checkout@main
+      with:
+        # Shallow clones should be disabled for a better relevancy of analysis
+        fetch-depth: 0
+
+    - name: Set up JDK (version / vendor)
+      uses: actions/setup-java@main
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.java-distribution }}
+        cache: 'maven'
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: ${{ inputs.maven-version }}
+
+    - name: Cache Maven packages
+      uses: actions/cache@main
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Cache SonarCloud packages
+      uses: actions/cache@main
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
+    - uses: actions/setup-node@main
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: System info
+      shell: bash
+      run: mvn -v; node -v
+
+    - name: Build and analyze
+      if: ${{ inputs.github-token != '' && inputs.sonar-token != '' }}
+      shell: bash
+      run: mvn -B clean install org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,full,metadata,sonarfugerit -Dsonar.projectKey=fugerit-org_${{github.event.repository.name}}
+      env:
+        # Needed to get some information about the pull request, if any
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+    - name: Build only
+      if: ${{ inputs.github-token == '' || inputs.sonar-token == '' }}
+      shell: bash
+      run: mvn -B clean install -P coverage,full,metadata
+      env:
+        # Needed to get some information about the pull request, if any
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+    - name: Update dependency graph
+      # if mavenDisableDependencySubmission is set to true, skip this step
+      if: ${{ inputs.disable-maven-dependency-submission != 'true' }}
+      uses: advanced-security/maven-dependency-submission-action@main
