@@ -14,7 +14,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 
 	<name>psychic-actions</name>
-	<description>Fugerit Java Library for JDK 1.8 and up</description>
+	<description>Basic pom file, used mainly for test purposes</description>
 	<url>https://www.fugerit.org</url>
 
 	<properties>
