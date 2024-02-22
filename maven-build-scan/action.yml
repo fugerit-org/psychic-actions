@@ -14,6 +14,21 @@ inputs:
   sonar-token:
     description: 'Sonar authorization token'
     required: false
+  snyk-token:
+    description: 'Snyk authorization token'
+    required: false
+  snyk-dockercontext:
+    description: 'Docker context folder'
+    required: false
+  snyk-dockertag:
+    description: 'Docker tag name'
+    required: false
+  snyk-image:
+    description: 'Snyk image parameter'
+    required: false
+  snyk-args:
+    description: 'Snyk args parameter'
+    required: false
   java-version:
     description: 'Java version'
     required: true
@@ -101,6 +116,31 @@ runs:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         # SonarCloud access token should be generated from https://sonarcloud.io/account/security/
         SONAR_TOKEN: ${{ inputs.sonar-token }}
+
+      # snyk
+    - name: Build a Docker image
+      shell: bash
+      if: ${{ inputs.snyk-dockertag != '' && inputs.snyk-dockercontext != '' }}
+      run: docker build -t ${{ inputs.snyk-dockertag }} ${{ inputs.snyk-dockercontext }}
+    - name: Run Snyk to check Docker image for vulnerabilities
+      if: ${{ inputs.snyk-token != '' && inputs.snyk-image != '' && inputs.snyk-args != '' }}
+      # Snyk can be used to break the build when it detects vulnerabilities.
+      # In this case we want to upload the issues to GitHub Code Scanning
+      continue-on-error: true
+      uses: snyk/actions/docker@master
+      env:
+        # In order to use the Snyk Action you will need to have a Snyk API token.
+        # More details in https://github.com/snyk/actions#getting-your-snyk-token
+        # or you can signup for free at https://snyk.io/login
+        SNYK_TOKEN: ${{ inputs.snyk-token }}
+      with:
+        image: ${{ inputs.snyk-image }}
+        args: ${{ inputs.snyk-args }}
+    - name: Upload result to GitHub Code Scanning
+      if: ${{ inputs.snyk-token != '' && inputs.snyk-image != '' && inputs.snyk-args != '' }}
+      uses: github/codeql-action/upload-sarif@main
+      with:
+          sarif_file: snyk.sarif
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph

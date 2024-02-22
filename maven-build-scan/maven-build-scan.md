@@ -2,12 +2,18 @@
 
 This action executes a project build and scan with sonar (if enabled).
 
+
 ## parameters
 
 | parameter                           | required | default    | description                                        |
 |-------------------------------------|----------|------------|----------------------------------------------------|
 | github-token                        | false    |            | Github authorization token                         |
 | sonar-token                         | false    |            | Sonar authorization token                          |
+| snyk-token                          | false    |            | Snyk authorization token                           |
+| snyk-dockercontext                  | false    |            | Docker context folder                              |
+| snyk-dockertag                      | false    |            | Docker tag name                                    |
+| snyk-image                          | false    |            | Snyk image parameter                               |
+| snyk-args                           | false    |            | Snyk args parameter                                |
 | java-version                        | true     | '17'       | Java version                                       |
 | java-description                    | true     | 'corretto' | Java distribution                                  |
 | maven-version                       | true     | '3.9.6'    | Maven version                                      |
@@ -16,18 +22,21 @@ This action executes a project build and scan with sonar (if enabled).
 | disable-maven-dependency-submission | true     | 'false'    | Disable maven dependency submission                |
 
 
-
 ## steps
 
-| step                                                 | note                                                     |
-|------------------------------------------------------|----------------------------------------------------------|
-| actions/checkout                                     |                                                          |
-| actions/setup-java                                   |                                                          |
-| actions/cache                                        |                                                          |
-| actions/setup-node                                   |                                                          |
-| Build and analyze                                    | if ${github-token} and ${sonar-token} are both set       |
-| Build only                                           | if ${github-token} or ${sonar-token} are not set         |
-| advanced-security/maven-dependency-submission-action | if ${disable-maven-dependency-submission } is not 'true' |
+| step                                                 | note                                                          |
+|------------------------------------------------------|---------------------------------------------------------------|
+| actions/checkout                                     |                                                               |
+| actions/setup-java                                   |                                                               |
+| actions/cache                                        |                                                               |
+| actions/setup-node                                   |                                                               |
+| Build and analyze                                    | if ${github-token} and ${sonar-token} are both set            |
+| Build only                                           | if ${github-token} or ${sonar-token} are not set              |
+| Build a Docker image                                 | if ${snyk-dockercontext} and ${snyk-dockertag} are both set   |
+| snyk/actions/docker                                  | if ${snyk-token} , ${snyk-image} and ${snyk-args} are all set |
+| github/codeql-action/upload-sarif                    | if ${snyk-token} , ${snyk-image} and ${snyk-args} are all set |
+| advanced-security/maven-dependency-submission-action | if ${disable-maven-dependency-submission } is not 'true'      |
+
 
 ## example
 

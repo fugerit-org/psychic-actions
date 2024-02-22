@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Added snyk parameters to action [Maven build and scan GitHub action](maven-build-scan/maven-build-scan.md)
+
 ## [1.0.0] - 2024-02-21
 
 ### Added
