@@ -1,7 +1,8 @@
 # Maven build and scan GitHub action
 
-This action executes a project build and scan with sonar (if enabled).
+[![back to index](https://img.shields.io/badge/back-to%20index-teal.svg)](../README.md)
 
+This action executes a project build and scan with sonar (if enabled).
 
 ## parameters
 
