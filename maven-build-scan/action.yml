@@ -53,6 +53,10 @@ inputs:
     description: 'Disable maven dependency submission'
     required: true
     default: 'false'
+  maven-core:
+    description: 'Number of core to use for maven build '
+    required: true
+    default: '1'
 
 runs:
   using: 'composite'
@@ -100,7 +104,7 @@ runs:
     - name: Build and analyze
       if: ${{ inputs.github-token != '' && inputs.sonar-token != '' }}
       shell: bash
-      run: mvn -B clean install org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,full,metadata,sonarfugerit${{ inputs.maven-additional-profiles }} -Dsonar.projectKey=fugerit-org_${{github.event.repository.name}}
+      run: mvn -B clean install -T ${{ inputs.maven-core }} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,full,metadata,sonarfugerit${{ inputs.maven-additional-profiles }} -Dsonar.projectKey=fugerit-org_${{github.event.repository.name}}
       env:
         # Needed to get some information about the pull request, if any
         GITHUB_TOKEN: ${{ inputs.github-token }}
@@ -110,7 +114,7 @@ runs:
     - name: Build only
       if: ${{ inputs.github-token == '' || inputs.sonar-token == '' }}
       shell: bash
-      run: mvn -B clean install -P coverage,full,metadata${{ inputs.maven-additional-profiles }}
+      run: mvn -B clean install -T ${{ inputs.maven-core }} -P coverage,full,metadata${{ inputs.maven-additional-profiles }}
       env:
         # Needed to get some information about the pull request, if any
         GITHUB_TOKEN: ${{ inputs.github-token }}

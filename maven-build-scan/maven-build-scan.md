@@ -21,6 +21,7 @@ This action executes a project build and scan with sonar (if enabled).
 | maven-additional-profiles           | false    |            | Additional maven profiles, should start with comma |
 | node-version                        | true     | '20'       | Node version                                       |
 | disable-maven-dependency-submission | true     | 'false'    | Disable maven dependency submission                |
+| maven-core                          | true     | '1'        | Number of core to use for maven build              |
 
 
 ## steps
