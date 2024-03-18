@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-03-18
+
 ### Changed
 
 - Added 'maven-core' parameter to [Maven build and scan GitHub action](maven-build-scan/maven-build-scan.md)
