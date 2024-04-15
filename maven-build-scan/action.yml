@@ -53,6 +53,10 @@ inputs:
     description: 'Disable maven dependency submission'
     required: true
     default: 'false'
+  disable-upload-sarif:
+    description: 'Disable upload sarif'
+    required: true
+    default: 'false'
   maven-core:
     description: 'Number of core to use for maven build '
     required: true
