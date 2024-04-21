@@ -26,4 +26,8 @@ jobs:
     steps:
       - uses: fugerit-org/psychic-actions/maven-container-publish@1-action-for-maven-build-container-build-and-publish
         with:
-          java-distribution: 'temurin'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          java-type: 'native'
+          java-version: '22-ea'
+          java-distribution: 'graalvm'
+          docker-file: 'src/test/docker/Dockerfile.jvm'
