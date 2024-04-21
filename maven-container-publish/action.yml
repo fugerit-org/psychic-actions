@@ -8,6 +8,10 @@ branding:
   icon: 'activity'
   color: 'light-blue'
 inputs:
+  java-type:
+    description: 'openjdk | native'
+    required: true
+    default: 'openjdk'
   java-version:
     description: 'Java version'
     required: true
@@ -48,12 +52,24 @@ runs:
         # Shallow clones should be disabled for a better relevancy of analysis
         fetch-depth: 0
 
+    # if parameter java-type != native
     - name: Set up JDK (version / vendor)
+      if: ${{ inputs.java-type != 'native' }}
       uses: actions/setup-java@main
       with:
         java-version: ${{ inputs.java-version }}
         distribution: ${{ inputs.java-distribution }}
         cache: 'maven'
+
+    # if parameter java-type != native
+    - name: Set up Java Native (version / vendor)
+      if: ${{ inputs.java-type == 'native' }}
+      uses: graalvm/setup-graalvm@main
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.java-distribution }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        native-image-job-reports: 'true'
 
     - name: Set up Maven
       uses: stCarolas/setup-maven@v5
