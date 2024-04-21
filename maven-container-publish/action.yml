@@ -1,0 +1,72 @@
+# Copyright (c) , Matteo Franci a.k.a. Fugerit
+#
+# version : 1.0.0
+#
+name: 'Maven build and scan GitHub action'
+description: 'CI steps for maven projects'
+branding:
+  icon: 'activity'
+  color: 'light-blue'
+inputs:
+  java-version:
+    description: 'Java version'
+    required: true
+    default: '21'
+  java-distribution:
+    description: 'Java distribution'
+    required: true
+    default: 'corretto'
+  maven-version:
+    description: 'Maven version'
+    required: true
+    default: '3.9.6'
+  maven-options:
+    description: 'Maven goal and options'
+    required: true
+    default: '-B clean package'
+  node-version:
+    description: 'Node version'
+    required: false
+    default: '20'
+  maven-core:
+    description: 'Number of core to use for maven build'
+    required: true
+    default: '1'
+  dockerhub-username:
+    description: 'Username for docker hub login'
+    required: false
+  dockerhub-password:
+    description: 'Password for docker hub login'
+    required: false
+
+runs:
+  using: 'composite'
+
+  steps:
+    - uses: actions/checkout@main
+      with:
+        # Shallow clones should be disabled for a better relevancy of analysis
+        fetch-depth: 0
+
+    - name: Set up JDK (version / vendor)
+      uses: actions/setup-java@main
+      with:
+        java-version: ${{ inputs.java-version }}
+        distribution: ${{ inputs.java-distribution }}
+        cache: 'maven'
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: ${{ inputs.maven-version }}
+
+    - name: Cache Maven packages
+      uses: actions/cache@main
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: System info
+      shell: bash
+      run: mvn -v
