@@ -1,0 +1,33 @@
+# CI with maven container publish
+#
+# version 1.0.0
+
+name: CI maven container publish latest
+
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
+  push:
+    branches:
+      - main
+      - develop
+      - branch-preview
+      - 1-action-for-maven-build-container-build-and-publish
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fugerit-org/psychic-actions/maven-container-publish@1-action-for-maven-build-container-build-and-publish
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          java-type: 'native'
+          java-version: '22-ea'
+          java-distribution: 'graalvm'
+          docker-file: 'src/test/docker/Dockerfile.jvm'
