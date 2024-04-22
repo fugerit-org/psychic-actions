@@ -11,3 +11,7 @@ Collections of GitHub actions, used in [Fugerit Org](https://github.com/fugerit-
 ![CI maven build and scan test latest](https://www.github.com/fugerit-org/psychic-actions/actions/workflows/maven-build-scan-test-latest.yml/badge.svg)
 ![CI maven build only](https://www.github.com/fugerit-org/psychic-actions/actions/workflows/maven-build-scan-test-build-only.yml/badge.svg)
 ![CI maven build only (java 8)](https://www.github.com/fugerit-org/psychic-actions/actions/workflows/maven-build-scan-test-build-only-8.yml/badge.svg)
+
+## [Maven container publish GitHub action](maven-container-publish/maven-container-publish.md)
+
+![CI maven container publish test latest](https://www.github.com/fugerit-org/psychic-actions/actions/workflows/maven-container-publish-latest.yml/badge.svg)

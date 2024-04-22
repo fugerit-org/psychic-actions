@@ -24,7 +24,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: fugerit-org/psychic-actions/maven-container-publish@1-action-for-maven-build-container-build-and-publish
+      - uses: fugerit-org/psychic-actions/maven-container-publish@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           java-type: 'native'

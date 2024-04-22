@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2024-04-22
+
+### Added
+
+- [Maven container publish GitHub action](maven-container-publish/maven-container-publish.md)
+
 ## [1.2.1] - 2024-04-15
 
 ### Changed
 
 - Added 'disable-upload-sarif' parameter to [Maven build and scan GitHub action](maven-build-scan/maven-build-scan.md)
-
 
 ## [1.2.0] - 2024-03-18
 

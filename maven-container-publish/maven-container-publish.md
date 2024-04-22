@@ -29,6 +29,10 @@ This action executes a project maven build, docker build and push (if enabled).
 - (2) for java type **native** check <https://github.com/graalvm/setup-graalvm>
 - (3) image push will be done only if **dockerhub-username** or **dockerhub-password** are both set
 
+## versions
+
+Aside project versions there is a floating stable tag available : **mcp**
+
 ## example
 
 - [CI maven container publish test latest](../.github/workflows/maven-container-publish-latest.yml)
@@ -60,7 +64,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: fugerit-org/psychic-actions/maven-container-publish@main
+      - uses: fugerit-org/psychic-actions/maven-container-publish@mcp
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           java-type: 'native'
