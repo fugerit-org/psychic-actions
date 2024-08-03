@@ -6,23 +6,24 @@ This action executes a project build and scan with sonar (if enabled).
 
 ## parameters
 
-| parameter                           | required | default    | description                                        |
-|-------------------------------------|----------|------------|----------------------------------------------------|
-| github-token                        | false    |            | Github authorization token                         |
-| sonar-token                         | false    |            | Sonar authorization token                          |
-| snyk-token                          | false    |            | Snyk authorization token                           |
-| snyk-dockercontext                  | false    |            | Docker context folder                              |
-| snyk-dockertag                      | false    |            | Docker tag name                                    |
-| snyk-image                          | false    |            | Snyk image parameter                               |
-| snyk-args                           | false    |            | Snyk args parameter                                |
-| java-version                        | true     | '17'       | Java version                                       |
-| java-description                    | true     | 'corretto' | Java distribution                                  |
-| maven-version                       | true     | '3.9.6'    | Maven version                                      |
-| maven-additional-profiles           | false    |            | Additional maven profiles, should start with comma |
-| node-version                        | true     | '20'       | Node version                                       |
-| disable-maven-dependency-submission | true     | 'false'    | Disable maven dependency submission                |
-| disable-upload-sarif                | true     | 'false'    | Disable upload sarif                               |
-| maven-core                          | true     | '1'        | Number of core to use for maven build              |
+| parameter                           | required | default    | description                                                                           |
+|-------------------------------------|----------|------------|---------------------------------------------------------------------------------------|
+| github-token                        | false    |            | Github authorization token                                                            |
+| sonar-token                         | false    |            | Sonar authorization token                                                             |
+| snyk-token                          | false    |            | Snyk authorization token                                                              |
+| snyk-dockercontext                  | false    |            | Docker context folder                                                                 |
+| snyk-dockertag                      | false    |            | Docker tag name                                                                       |
+| snyk-image                          | false    |            | Snyk image parameter                                                                  |
+| snyk-args                           | false    |            | Snyk args parameter                                                                   |
+| java-version                        | true     | '17'       | Java version                                                                          |
+| java-description                    | true     | 'corretto' | Java distribution                                                                     |
+| maven-version                       | true     | '3.9.6'    | Maven version                                                                         |
+| maven-additional-profiles           | false    |            | Additional maven profiles, should start with comma                                    |
+| node-version                        | true     | '20'       | Node version                                                                          |
+| disable-maven-dependency-submission | true     | 'false'    | Disable maven dependency submission (deprecated, will be ignored)                     |
+| enable-maven-dependency-submission  | true     | 'false'    | Enable maven dependency submission (substitutes disable-maven-dependency-submission ) |
+| disable-upload-sarif                | true     | 'false'    | Disable upload sarif                                                                  |
+| maven-core                          | true     | '1'        | Number of core to use for maven build                                                 |
 
 
 ## steps

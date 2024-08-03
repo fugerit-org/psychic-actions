@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- [maven-build-scan] enable-maven-dependency-submission property substitutes disable-maven-dependency-submission
+  (now the default behaviour is not sending dependency graph)
+- [maven-build-scan] disable-maven-dependency-submission is deprecated (will be ignore)
+
 ## [1.3.0] - 2024-04-22
 
 ### Added

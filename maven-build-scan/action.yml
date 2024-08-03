@@ -50,7 +50,11 @@ inputs:
     required: true
     default: '20'
   disable-maven-dependency-submission:
-    description: 'Disable maven dependency submission'
+    description: 'Disable maven dependency submission, deprecated, substituted by enable-maven-dependency-submission'
+    required: true
+    default: 'false'
+  enable-maven-dependency-submission:
+    description: 'Enable maven dependency submission'
     required: true
     default: 'false'
   disable-upload-sarif:
@@ -153,5 +157,5 @@ runs:
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
       # if mavenDisableDependencySubmission is set to true, skip this step
-      if: ${{ inputs.disable-maven-dependency-submission != 'true' }}
+      if: ${{ inputs.enable-maven-dependency-submission == 'true' }}
       uses: advanced-security/maven-dependency-submission-action@main
