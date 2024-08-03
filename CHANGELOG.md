@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2024-08-04
+
 ### Changed
 
 - [maven-build-scan] enable-maven-dependency-submission property substitutes disable-maven-dependency-submission
