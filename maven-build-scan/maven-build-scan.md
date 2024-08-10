@@ -19,6 +19,7 @@ This action executes a project build and scan with sonar (if enabled).
 | java-description                    | true     | 'corretto' | Java distribution                                                                     |
 | maven-version                       | true     | '3.9.6'    | Maven version                                                                         |
 | maven-additional-profiles           | false    |            | Additional maven profiles, should start with comma                                    |
+| maven-additional-options            | false    |            | Additional maven options                                                              |
 | node-version                        | true     | '20'       | Node version                                                                          |
 | disable-maven-dependency-submission | true     | 'false'    | Disable maven dependency submission (deprecated, will be ignored)                     |
 | enable-maven-dependency-submission  | true     | 'false'    | Enable maven dependency submission (substitutes disable-maven-dependency-submission ) |

@@ -45,6 +45,10 @@ inputs:
     description: 'Additional maven profiles, should start with comma'
     required: false
     default: ''
+  maven-additional-options:
+    description: 'Additional maven options'
+    required: false
+    default: ''
   node-version:
     description: 'Node version'
     required: true
@@ -112,7 +116,7 @@ runs:
     - name: Build and analyze
       if: ${{ inputs.github-token != '' && inputs.sonar-token != '' }}
       shell: bash
-      run: mvn -B clean install -T ${{ inputs.maven-core }} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,full,metadata,sonarfugerit${{ inputs.maven-additional-profiles }} -Dsonar.projectKey=fugerit-org_${{github.event.repository.name}}
+      run: mvn -B clean install -T ${{ inputs.maven-core }} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -P coverage,full,metadata,sonarfugerit${{ inputs.maven-additional-profiles }} -Dsonar.projectKey=fugerit-org_${{github.event.repository.name}} ${{inputs.maven-additional-options}}
       env:
         # Needed to get some information about the pull request, if any
         GITHUB_TOKEN: ${{ inputs.github-token }}
@@ -122,7 +126,7 @@ runs:
     - name: Build only
       if: ${{ inputs.github-token == '' || inputs.sonar-token == '' }}
       shell: bash
-      run: mvn -B clean install -T ${{ inputs.maven-core }} -P coverage,full,metadata${{ inputs.maven-additional-profiles }}
+      run: mvn -B clean install -T ${{ inputs.maven-core }} -P coverage,full,metadata${{ inputs.maven-additional-profiles }} ${{inputs.maven-additional-options}}
       env:
         # Needed to get some information about the pull request, if any
         GITHUB_TOKEN: ${{ inputs.github-token }}
