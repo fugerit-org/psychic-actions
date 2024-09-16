@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [maven-build-scan] added parameter : maven-additional-options
 
+### Fixed
+
+- snyk args to docker build
+
 ## [1.3.1] - 2024-08-04
 
 ### Changed

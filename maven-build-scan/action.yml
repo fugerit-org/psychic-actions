@@ -137,7 +137,7 @@ runs:
     - name: Build a Docker image
       shell: bash
       if: ${{ inputs.snyk-dockertag != '' && inputs.snyk-dockercontext != '' }}
-      run: docker build -t ${{ inputs.snyk-dockertag }} ${{ inputs.snyk-dockercontext }}
+      run: docker build -t ${{ inputs.snyk-dockertag }} ${{ inputs.snyk-args }} ${{ inputs.snyk-dockercontext }}
     - name: Run Snyk to check Docker image for vulnerabilities
       if: ${{ inputs.snyk-token != '' && inputs.snyk-image != '' && inputs.snyk-args != '' }}
       # Snyk can be used to break the build when it detects vulnerabilities.
