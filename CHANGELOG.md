@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- java-type parameter deprecated as now graalvm is handled by <https://github.com/actions/setup-java>
+- [maven-build-scan] added parameter : maven-additional-options
+
 ## [1.3.2] - 2024-09-16
 
 ### Changed 

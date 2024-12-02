@@ -6,27 +6,26 @@ This action executes a project maven build, docker build and push (if enabled).
 
 ## parameters
 
-| parameter          | required | default            | description                               |
-|--------------------|----------|--------------------|-------------------------------------------|
-| github-token       | true     |                    | Github authorization token                |
-| java-type          | true     | 'openjdk'          | Java type : 'openjdk' (1) or 'native' (2) |
-| java-version       | true     | '21'               | Java version                              |
-| java-description   | true     | 'corretto'         | Java distribution                         |
-| maven-version      | true     | '3.9.6'            | Maven version                             |
-| maven-options      | true     | '-B clean package' | Maven goals and options                   |
-| node-version       | true     | '20'               | Node version                              |
-| docker-context     | true     | '.'                | Docker context                            |
-| docker-file        | true     | 'Dockerfile'       | Docker file                               |
-| docker-tags        | true     | 'latest'           | Comma separated image tags                |
-| docker-platforms   | true     | 'linux/amd64'      | Comma separated platforms                 |
-| dockerhub-username | false    |                    | Docker hub username (3)                   |
-| dockerhub-password | false    |                    | Docker hub password (3)                   |
+| parameter          | required | default            | description                |
+|--------------------|----------|--------------------|----------------------------|
+| github-token       | true     |                    | Github authorization token |
+| java-type          | true     | 'openjdk'          | deprecated (1), (2)        |
+| java-version       | true     | '21'               | Java version               |
+| java-description   | true     | 'corretto'         | Java distribution          |
+| maven-version      | true     | '3.9.6'            | Maven version              |
+| maven-options      | true     | '-B clean package' | Maven goals and options    |
+| node-version       | true     | '20'               | Node version               |
+| docker-context     | true     | '.'                | Docker context             |
+| docker-file        | true     | 'Dockerfile'       | Docker file                |
+| docker-tags        | true     | 'latest'           | Comma separated image tags |
+| docker-platforms   | true     | 'linux/amd64'      | Comma separated platforms  |
+| dockerhub-username | false    |                    | Docker hub username (3)    |
+| dockerhub-password | false    |                    | Docker hub password (3)    |
 
 
 ## notes
 
-- (1) for java type **openjdk** check <https://github.com/actions/setup-java>
-- (2) for java type **native** check <https://github.com/graalvm/setup-graalvm>
+- (1) , (2) <https://github.com/graalvm/setup-graalvm> is not used anymore, as now graalvm is handled by <https://github.com/actions/setup-java>
 - (3) image push will be done only if **dockerhub-username** or **dockerhub-password** are both set
 
 ## versions
