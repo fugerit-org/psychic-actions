@@ -2,7 +2,7 @@
 #
 # version : 1.0.0
 #
-name: 'Maven build and scan GitHub action'
+name: 'Maven container build and publish GitHub action'
 description: 'CI steps for maven projects'
 branding:
   icon: 'activity'

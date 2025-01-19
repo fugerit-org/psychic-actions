@@ -1,4 +1,4 @@
-# Maven build and scan GitHub action
+# Maven container build and publish GitHub action
 
 [![back to index](https://img.shields.io/badge/back-to%20index-teal.svg)](../README.md)
 
