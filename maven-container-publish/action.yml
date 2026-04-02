@@ -57,6 +57,10 @@ inputs:
   dockerhub-password:
     description: 'Password for docker hub login'
     required: false
+  docker-build-args:
+    description: 'Docker build args'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -118,3 +122,4 @@ runs:
         platforms: ${{ inputs.docker-platforms }}
         push: ${{ inputs.dockerhub-username != '' && inputs.dockerhub-password != '' }}
         tags: ${{ inputs.docker-tags }}
+        build-args: ${{ inputs.docker-build-args }}
